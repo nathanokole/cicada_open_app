@@ -3,7 +3,7 @@ torch==2.5.1
 torchvision==0.20.1
 streamlit>=1.34
 streamlit-plotly-events
-opencv-python==4.4
+opencv-python
 scikit-learn
 scikit-image
 pretrainedmodels
