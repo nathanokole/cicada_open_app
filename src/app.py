@@ -74,8 +74,6 @@ from googleapiclient.http import MediaIoBaseDownload
 import json, os
 
 def download_from_drive(file_id, dest_path):
-    print(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"], flush=True)
-    print(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]), flush=True)
     creds = service_account.Credentials.from_service_account_file(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]))
     service = build('drive', 'v3', credentials=creds)
     request = service.files().get_media(fileId=file_id)
@@ -88,7 +86,10 @@ def download_from_drive(file_id, dest_path):
 
 @st.cache_resource(show_spinner=True)
 def load_model(path: str, file_id: str, backbone_out_: int, num_classes_: int):
+    print(os.path.exists(path), flush=True)
     download_from_drive(file_id, path)
+    print(file_id, path, flush=True)
+    print(os.path.exists(path), flush=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     m = ModifiedInception(pretrained_path=path, backbone_out=backbone_out_, num_classes=num_classes_)
     return m.to(device).eval()
