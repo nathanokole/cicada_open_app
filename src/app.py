@@ -74,6 +74,7 @@ from googleapiclient.http import MediaIoBaseDownload
 import json, os
 
 def download_from_drive(file_id, dest_path):
+    print(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
     print(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]))
     creds = service_account.Credentials.from_service_account_file(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]))
     service = build('drive', 'v3', credentials=creds)
