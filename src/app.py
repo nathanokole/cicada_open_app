@@ -87,7 +87,6 @@ def download_from_drive(file_id, dest_path):
 @st.cache_resource(show_spinner=True)
 def load_model(path: str, file_id: str, backbone_out_: int, num_classes_: int):
     download_from_drive(file_id, path)
-    print(torch.cuda.is_available(), flush=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     m = ModifiedInception(pretrained_path=path, backbone_out=backbone_out_, num_classes=num_classes_)
     return m.to(device).eval()
@@ -246,10 +245,8 @@ for base, labels in (("M1", M1_LABELS), ("M2", M2_LABELS)):
             st.session_state.out_sizes[base] = cfg["out_size"]
             st.session_state.labels_map[base] = labels
             loaded.append(base)
-            print(cfg, flush=True)
         except Exception as e:
             errors[base] = str(e)
-            print(e, flush=True)
 
 # =====================================================
 # Sidebar: models + annotate controls
