@@ -72,6 +72,7 @@ from googleapiclient.discovery import build
 import io
 from googleapiclient.http import MediaIoBaseDownload
 import json, os
+print(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]), flush=True)
 
 def download_from_drive(file_id, dest_path):
     print(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]), flush=True)
