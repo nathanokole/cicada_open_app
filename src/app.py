@@ -72,11 +72,11 @@ from googleapiclient.discovery import build
 import io
 from googleapiclient.http import MediaIoBaseDownload
 import json, os
-import yaml
 
 def download_from_drive(file_id, dest_path):
-    d = yaml.safe_load(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
-    print(d, flush=True)
+    d = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
+    e = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]
+    print(e, flush=True)
     creds = service_account.Credentials.from_service_account_file(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]))
     print("Cred: ", creds, flush=True)
     service = build('drive', 'v3', credentials=creds)
