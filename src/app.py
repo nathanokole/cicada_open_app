@@ -76,7 +76,7 @@ import json, os
 def download_from_drive(file_id, dest_path):
     #d = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"].replace("\\n", "\n"))
     #st.code(d)
-    print(repr(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"][2406:]), flush=True)
+    print(repr(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"][10:]), flush=True)
     e = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"][2406:])
     
     st.code(e)
