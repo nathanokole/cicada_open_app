@@ -74,14 +74,7 @@ from googleapiclient.http import MediaIoBaseDownload
 import json, os
 
 def download_from_drive(file_id, dest_path):
-    #d = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"].replace("\\n", "\n"))
-    #st.code(d)
-    print(repr(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]), flush=True)
-    e = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
-    
-    st.code(e)
     creds = service_account.Credentials.from_service_account_info(json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]))
-    print("Cred: ", creds, flush=True)
     service = build('drive', 'v3', credentials=creds)
     request = service.files().get_media(fileId=file_id)
     with io.FileIO(dest_path, 'wb') as fh:
@@ -89,16 +82,11 @@ def download_from_drive(file_id, dest_path):
         done = False
         while not done:
             status, done = downloader.next_chunk()
-            print("Download: ", done, flush=True)
             print("Download %d%%." % int(status.progress() * 100), flush=True)
 
 @st.cache_resource(show_spinner=True)
 def load_model(path: str, file_id: str, backbone_out_: int, num_classes_: int):
-    print(os.path.exists(path), flush=True)
-    print(file_id, flush=True)
-    print(path, flush=True)
     download_from_drive(file_id, path)
-    print(os.path.exists(path), flush=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     m = ModifiedInception(pretrained_path=path, backbone_out=backbone_out_, num_classes=num_classes_)
     return m.to(device).eval()
