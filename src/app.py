@@ -74,7 +74,7 @@ from googleapiclient.http import MediaIoBaseDownload
 import json, os
 
 def download_from_drive(file_id, dest_path):
-    d = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]).replace("\\n", "\n").replace('\\"', '"')
+    d = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"].replace("\\n", "\n").replace('\\"', '"'))
     e = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]
     print(type(e), flush=True)
     st.code(d)
