@@ -214,8 +214,7 @@ def prep_roi(roi, dpi, out_size=256, seam=5, ksize=(11,11)):
 
     # apply padding
     roi  = cv2.copyMakeBorder(roi,  t, b, l, r, cv2.BORDER_CONSTANT, value=color)
-    roi = cv2.resize(roi, dsize=(out_size, out_size), interpolation=cv2.INTER_LANCZOS4)
-
+    
     # if we’re in the “too-small” case, blur seams and center-crop
     if h < out_size or w < out_size:
         blur = cv2.GaussianBlur(roi, ksize, 5)
@@ -230,6 +229,12 @@ def prep_roi(roi, dpi, out_size=256, seam=5, ksize=(11,11)):
         hs = out_size // 2
         roi  = roi[ cy-hs : cy-hs+out_size, cx-hs : cx-hs+out_size ]
 
+    # for big insects, crop to size
+    if not roi.shape[0] == out_size or not roi.shape[1] == out_size:
+        cy, cx = roi.shape[0]//2, roi.shape[1]//2
+        hs = out_size // 2
+        roi  = roi[ cy-hs : cy-hs+out_size, cx-hs : cx-hs+out_size ]
+    
     return roi
 
 def prep_roi_and_mask(roi, mask, dpi, out_size=256, seam=5, ksize=(11,11), target_dpi=1600):
