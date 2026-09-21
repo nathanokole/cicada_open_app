@@ -10,6 +10,10 @@ from skimage.measure import regionprops, label as sk_label
 from utils.constants import MIN_DISPLAY_SIZE
 import copy
 
+# Handle very large images (21.09.2026)
+import PIL.Image
+PIL.Image.MAX_IMAGE_PIXELS = None
+
 def cm2_to_px(area_cm2: float, dpi: float) -> float:
     px_per_cm = dpi / 2.54
     return area_cm2 * (px_per_cm**2)
