@@ -301,7 +301,8 @@ def _reset_on_new():
     st.session_state.current_file_hash = None
 
 uploaded = st.file_uploader(
-    "Choose an image…", ["png", "jpg", "jpeg", "tif", "tiff"], on_change=_reset_on_new
+    "Choose an image…", ["png", "jpg", "jpeg", "tif", "tiff"], on_change=_reset_on_new,
+    max_upload_size=50
 )
 if not uploaded:
     st.stop()
