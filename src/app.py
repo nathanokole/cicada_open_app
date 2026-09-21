@@ -29,7 +29,7 @@ from utils.image_processing import (
 # Page & minimal global state
 # =====================================================
 st.set_page_config(layout="wide", page_title="Planthopper Detection & Analysis")
-st.title("Planthopper Detection & Analysis")
+st.title("Planthopper Detection & Analysis (demo version)")
 st.markdown(
     """
     <style>html,body,[class*='css']{margin:0;padding:0}.main{overflow:auto}img{max-width:100%}</style>
